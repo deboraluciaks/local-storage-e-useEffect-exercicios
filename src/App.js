@@ -8,34 +8,52 @@ function App() {
   const [valorDoInput, setValorDoInput] = useState("");
   const [filtro, setFiltro] = useState("")
 
-  // useEffect() => {
-  //   () => {
+  useEffect(() => {
+    if (tarefas.length > 0) {
+      localStorage.setItem("tarefas", JSON.stringify(tarefas));
+    }
+  }, [tarefas]);
 
-  //   },
-  //   []
-  // };
 
-  // useEffect() => {
-  //   () => {
+  useEffect(() => {
+    const listaSalva = localStorage.getItem("tarefas");
+    if (listaSalva) {
+      setTarefas(JSON.parse(listaSalva));
+    }
+  }, []);
 
-  //   },
-  //   []
-  // };
+
+
 
   const pegarValorDoInput = (event) => {
-    console.log("aaa");
+    setValorDoInput(event.target.value);
   }
 
   const criarTarefa = () => {
-    console.log("aaa");
+    const novatarefa = {
+      id: Date.now(), 
+      texto: valorDoInput,
+      completa: false ,
+    };
+
+    const novaListaTarefas = [...tarefas, novatarefa]
+    setTarefas(novaListaTarefas)
+    console.log(novaListaTarefas);
   }
 
   const selecionarTarefa = (id) => {
-    console.log("aaa");
+
+    listaFiltrada.map(tarefa => {
+      if (id === tarefa.id){
+        return tarefa.completa = true
+      }
+    })
+    
   }
 
   const pegarValorDoSelect = (event) => {
-    console.log("aaa");
+    setFiltro(event.target.value)
+    
   }
 
 
